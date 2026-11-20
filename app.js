@@ -147,7 +147,7 @@ function renderCalendar() {
   const selList = (byDay[ui.calSelected] || []).slice().sort(byDateDesc);
   const monthName = m.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
 
-  return `
+  return `${whatsNewCard()}
     <div class="stats">
       <div class="stat"><b>${inMonth.length}</b><small>Einheiten</small></div>
       <div class="stat"><b>${days}</b><small>Trainingstage</small></div>
@@ -685,6 +685,10 @@ document.addEventListener('click', ev => {
       }
       break;
     case 'export': exportData(); break;
+    case 'whatsnew-ok':
+      try { localStorage.setItem(SEEN_KEY, APP_VERSION); } catch {}
+      render(); break;
+    case 'apply-update': applyUpdate(); break;
     default: handleDartsAction(action, el);
   }
 });
@@ -697,8 +701,52 @@ document.addEventListener('change', ev => {
 });
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeModal(); });
 
+/* ---------------- Was ist neu ---------------- */
+const SEEN_KEY = 'trainings-seen-version';
+const verNum = v => String(v || '0').split('.').map(Number).reduce((a, n, i) => a + n / Math.pow(1000, i), 0);
+function whatsNewCard() {
+  let seen = null;
+  try { seen = localStorage.getItem(SEEN_KEY); } catch {}
+  if (seen === APP_VERSION) return '';
+  // Erststart ohne gespeicherte Version: nur die aktuelle Version zeigen
+  const list = seen ? CHANGELOG.filter(c => verNum(c.version) > verNum(seen)) : CHANGELOG.slice(0, 1);
+  if (!list.length) return '';
+  return `<div class="card whatsnew">
+    <div class="card-head"><span class="card-title">🆕 Was ist neu in Version ${APP_VERSION}</span></div>
+    ${list.map(c => `${list.length > 1 ? `<div class="cat-label">Version ${c.version}</div>` : ''}
+      <ul>${c.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`).join('')}
+    <div class="btn-row"><button class="btn" data-action="whatsnew-ok">Alles klar 👍</button></div>
+  </div>`;
+}
+
+/* ---------------- Updates erkennen ---------------- */
+const ONLINE = location.protocol.startsWith('http');
+async function checkForUpdate() {
+  if (!ONLINE) return;
+  try {
+    const res = await fetch('version.json?t=' + Date.now(), { cache: 'no-store' });
+    const { version } = await res.json();
+    if (!version || version === APP_VERSION) return;
+    let tried = null;
+    try { tried = sessionStorage.getItem('update-tried'); } catch {}
+    const busy = !$('#modal').classList.contains('hidden') || state.activeGame;
+    if (tried === version || busy) $('#updateBar').classList.remove('hidden');
+    else applyUpdate(version);
+  } catch { /* offline – egal */ }
+}
+async function applyUpdate(version) {
+  try { if (version) sessionStorage.setItem('update-tried', version); } catch {}
+  try {
+    const reg = await navigator.serviceWorker?.getRegistration();
+    await reg?.update();
+  } catch {}
+  location.reload();
+}
+
 /* ---------------- Start ---------------- */
 render();
-if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-  navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW', err));
+if ('serviceWorker' in navigator && ONLINE) {
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).catch(err => console.warn('SW', err));
 }
+setTimeout(checkForUpdate, 1500);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') checkForUpdate(); });

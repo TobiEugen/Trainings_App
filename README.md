@@ -49,8 +49,9 @@ Fertig – die App startet jetzt vom Home-Bildschirm im Vollbild und funktionier
 Nutze die App immer über das Icon und mache ab und zu ein Backup (⚙︎ → Backup herunterladen).
 
 ## Updates
-Nach Änderungen die geänderten Dateien erneut zu GitHub hochladen und in `sw.js`
-die Zeile `const CACHE = 'training-v2'` hochzählen (v3, v4 …). Deine Daten bleiben dabei erhalten.
+Änderungen werden ins GitHub-Repository gepusht. Die App erkennt beim Öffnen automatisch eine neue Version,
+lädt sie und zeigt auf dem Startbildschirm „Was ist neu“. Deine Daten bleiben dabei erhalten.
+Ablauf für Entwickler: siehe Release-Checkliste in `CLAUDE.md`.
 
 ## Dateien
 - `index.html` – Grundgerüst

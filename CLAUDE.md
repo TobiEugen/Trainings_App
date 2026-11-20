@@ -3,14 +3,16 @@
 Persönliche Trainings-App (Fitness, Golf, Darts) für Tobi. Antworte auf **Deutsch**, die App-Oberfläche ist komplett deutsch.
 
 ## Technik
-- Reine PWA ohne Build-Schritt und ohne Abhängigkeiten: `index.html`, `styles.css`, `charts.js`, `darts.js`, `app.js`, `manifest.json`, `sw.js`, `icons/`
-- Skript-Reihenfolge in `index.html`: `charts.js` → `darts.js` → `app.js` (app.js ruft am Ende `render()` auf; die anderen Dateien nutzen Helfer aus app.js erst zur Laufzeit)
+- Reine PWA ohne Build-Schritt und ohne Abhängigkeiten: `index.html`, `styles.css`, `changelog.js`, `charts.js`, `darts.js`, `app.js`, `version.json`, `manifest.json`, `sw.js`, `icons/`
+- Skript-Reihenfolge in `index.html`: `changelog.js` → `charts.js` → `darts.js` → `app.js` (app.js ruft am Ende `render()` auf; die anderen Dateien nutzen Helfer aus app.js erst zur Laufzeit)
 - Daten liegen lokal im Browser: `localStorage['trainings-tracker-v1']`. Kein Server, kein Login. Abgleich zwischen Geräten per Backup-Export/Import (⚙︎)
 - Gehostet über **GitHub Pages** aus dem `main`-Branch (Root). Der Nutzer nutzt die App auf dem iPhone („Zum Home-Bildschirm“) und am Windows-PC
 
-## Bei jeder Änderung
-1. **`CACHE` in `sw.js` hochzählen** (`training-vN` → `vN+1`), sonst bekommen Geräte das Update nicht zuverlässig
-2. Neue Dateien in die `FILES`-Liste in `sw.js` aufnehmen
+## Bei jeder Änderung (Release-Checkliste)
+1. **Version erhöhen** an allen Stellen gleich: `APP_VERSION` in `changelog.js`, `version.json`, alle `?v=` in `index.html`
+2. **Neuen Eintrag oben in `CHANGELOG`** (`changelog.js`) mit kurzen, verständlichen Stichpunkten auf Deutsch – wird dem Nutzer beim ersten Öffnen nach dem Update auf dem Startbildschirm angezeigt
+3. **`CACHE` in `sw.js` hochzählen** (`training-vN` → `vN+1`); neue Dateien in die `FILES`-Liste
+- Update-Mechanik: Die App prüft beim Öffnen/Zurückkehren `version.json` (no-store) und lädt bei neuer Version automatisch neu; der Service Worker fragt immer mit `cache: 'no-cache'` beim Server nach
 3. Bestehende Daten müssen weiter funktionieren (alte Einträge ohne neue Felder abfangen, z. B. `g.start ?? 'Upper'`)
 4. README.md (Funktionsliste) aktualisieren
 5. Mobile zuerst testen (390×844), Desktop prüfen

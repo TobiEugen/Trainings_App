@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Training">
+  <title>Trainings-Tracker</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1 id="viewTitle">Kalender</h1>
+    <button class="icon-btn" id="settingsBtn" aria-label="Einstellungen">⚙︎</button>
+  </header>
+
+  <main id="view"></main>
+
+  <nav class="tabbar">
+    <button data-nav="kalender" class="active"><span>📅</span>Kalender</button>
+    <button data-nav="fitness"><span>💪</span>Fitness</button>
+    <button data-nav="golf"><span>⛳</span>Golf</button>
+    <button data-nav="darts"><span>🎯</span>Darts</button>
+  </nav>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="sheet">
+      <div class="sheet-head">
+        <h2 id="modalTitle"></h2>
+        <button class="icon-btn" data-close aria-label="Schließen">✕</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="charts.js"></script>
+  <script src="darts.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

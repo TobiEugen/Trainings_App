@@ -18,6 +18,7 @@ Keine Kosten, kein Server: Die Daten liegen lokal auf dem jeweiligen Gerät.
   - *18 Darts Scoring* (20, 19, 18 oder frei): Triple +2, Doppel +1, Feld drüber/drunter 0, Ausreißer links/rechts −1 – mit Tendenz-Auswertung
   - *Upper/Lower* (20 oder 19): 6 Aufnahmen abwechselnd über/unter das Triple, Start (Upper oder Lower) wählbar, Treffer zählen
   - *Shanghai*: 1, 20, 2, 20 … 19, 20 – Feld wiederholen bis geschafft, Endabrechnung mit Versuchen
+  - *501 gegen Gegner*: Best of 5 gegen einen 30/27/24-Darter (gerade Legs 3 Darts weniger, da Gegner Anwurf hat); Score-Eingabe per Ziffernblock und Schnelltasten; Gesamt-Avg, First-18-Avg, W/L je Gegnerstärke
 - **Statistik-Zeitraum** frei wählbar: alle, die letzten N Spiele/Trainings oder die letzten N Tage
 - Laufende Darts-Spiele lassen sich auf der Darts-Startseite fortsetzen oder schließen
 - **Golf**: einfache Einträge (wird später erweitert)

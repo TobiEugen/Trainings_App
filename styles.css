@@ -190,3 +190,22 @@ select#gymChartPick { margin-bottom: 8px; }
 .stat-bar .bar i.D { background: var(--golf); }
 .stat-bar .bar i.S { background: var(--muted); }
 .stat-bar .bar i.M { background: var(--danger); }
+
+/* 501 */
+.grid-3 .btn small { font-weight: 400; opacity: .8; font-size: 12px; }
+.x01-score { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; margin-bottom: 10px; }
+.x01-score > div { text-align: center; background: var(--panel-2); border-radius: 12px; padding: 8px; }
+.x01-score > div.vs { background: none; color: var(--muted); font-size: 13px; }
+.x01-score small { display: block; color: var(--muted); font-size: 12px; }
+.x01-score b { font-size: 30px; }
+.x01-score .lead b { color: var(--accent); }
+.x01-rest { color: var(--darts); }
+.x01-display { text-align: center; font-size: 36px; font-weight: 700; padding: 8px; background: var(--bg); border: 1px solid var(--line);
+  border-radius: 12px; margin-bottom: 8px; min-height: 60px; font-variant-numeric: tabular-nums; }
+.x01-display .meta { font-size: 16px; font-weight: 400; line-height: 42px; }
+.x01-quick { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.x01-quick .chip { padding: 8px 11px; font-size: 14px; color: var(--text); }
+.x01-quick .chip:disabled { opacity: .3; }
+.x01-quick .checkout-chip { border-color: var(--accent); color: var(--accent); }
+.x01-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.x01-pad .btn { padding: 16px 0; font-size: 22px; }

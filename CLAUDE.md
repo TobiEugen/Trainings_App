@@ -18,7 +18,8 @@ Persönliche Trainings-App (Fitness, Golf, Darts) für Tobi. Antworte auf **Deut
 ## Datenmodell (state)
 - `entries[]`: `{id, date:'YYYY-MM-DD', area:'fitness'|'golf'|'darts', group:'home'|'gym'|'relax'|null, title, duration, notes, link, status:'done'|'planned', exercises?, game?}`
   - Gym: `exercises[]` = Snapshot `{exId, name, cat, sets, reps, time, plannedWeight, achievedWeight, done}`
-  - Darts-Spiel: `game = {type:'scoring18'|'upperlower'|'shanghai', variant, start?, darts?|hits?|log?, score}`
+  - Darts-Spiel: `game = {type:'scoring18'|'upperlower'|'shanghai'|'x01', variant, start?, darts?|hits?|log?|turns?, score}`
+  - 501: `turns = [{s: Punkte, d: Darts}]`; Legs/Rest/Sieg werden per `x01State()` nachgerechnet; `score` = Gesamt-Avg
 - `exercises[]` (Bibliothek): `{id, name, cat:'warmup'|'cardio'|'kraft', sets, reps, time, weight, history:[{date, weight, entryId}]}` – bei Cardio ist `weight` die Stufe; Cardio wird nach dem Training nur abgehakt
 - `favorites[]` (Lieblingsvideos), `templates[]` (Gym-Vorlagen), `activeGame` (laufendes Darts-Spiel), `settings` (`rangeMode`, `rangeN` für Statistik-Zeitraum)
 
@@ -26,6 +27,7 @@ Persönliche Trainings-App (Fitness, Golf, Darts) für Tobi. Antworte auf **Deut
 - 18 Darts Scoring (20/19/18/frei): T +2, D +1, Feld drüber/drunter 0, Ausreißer links/rechts −1
 - Upper/Lower (20/19): 6 Aufnahmen à 3 Darts, abwechselnd, Startzone wählbar, Treffer 0–3 pro Aufnahme
 - Shanghai: 1,20,2,20 … 19,20 (38 Felder, kein Bull). Ergebnisse: Shanghai, Doppel Out, 3 im großen Feld, Shanghai verpasst, nicht geschafft (= Feld wiederholen). Wertung = Anzahl Aufnahmen (weniger ist besser)
+- 501 gegen Gegner (variant 30/27/24): bis 3 gewonnene Legs; ungerade Legs (eigener Anwurf) Limit = N Darts, gerade Legs = N−3. Leg gewonnen, wenn innerhalb des Limits gecheckt (Double-Out angenommen). Statistik: Gesamt-Avg, First 18 Avg (erste 6 Aufnahmen je Leg), W/L je Gegnerstärke
 - Darts hat kein Dauer-Feld
 
 ## Arbeitsweise

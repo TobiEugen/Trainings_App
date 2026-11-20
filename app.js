@@ -84,6 +84,8 @@ const ui = {
   dartsStat: 'scoring18',
   dartsVariant: 'alle',
   ulStart: 'Upper',
+  x01Input: '',
+  x01Pending: null,
   gymChartEx: null
 };
 

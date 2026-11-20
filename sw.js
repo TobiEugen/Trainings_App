@@ -1,6 +1,6 @@
 // Service Worker: macht die App offline nutzbar.
 // Bei jeder neuen App-Version CACHE erhöhen, damit Geräte das Update laden.
-const CACHE = 'training-v6';
+const CACHE = 'training-v7';
 const FILES = [
   './', './index.html', './styles.css', './app.js', './charts.js', './darts.js', './manifest.json',
   './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png'

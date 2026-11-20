@@ -5,9 +5,16 @@
    dieselbe Version in version.json und in den ?v= Parametern in index.html eintragen,
    CACHE in sw.js hochzählen.
    ========================================================= */
-const APP_VERSION = '1.6';
+const APP_VERSION = '1.6.1';
 
 const CHANGELOG = [
+  {
+    version: '1.6.1', date: '2026-11-20',
+    items: [
+      '🛠️ Kalender repariert: Er verschwand, wenn ein Update nur halb geladen war',
+      '🛡️ Die App zeigt jetzt nie mehr eine leere Seite, sondern bietet „App neu laden“ an'
+    ]
+  },
   {
     version: '1.6', date: '2026-11-20',
     items: [

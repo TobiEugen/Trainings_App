@@ -100,10 +100,18 @@ function render() {
   const titles = { kalender: 'Kalender', fitness: 'Fitness', golf: 'Golf', darts: 'Darts' };
   $('#viewTitle').textContent = titles[ui.view];
   const v = $('#view');
-  if (ui.view === 'kalender') v.innerHTML = renderCalendar();
-  else if (ui.view === 'fitness') v.innerHTML = renderFitness();
-  else if (ui.view === 'darts') v.innerHTML = renderDarts();
-  else v.innerHTML = renderSimpleArea(ui.view);
+  try {
+    if (ui.view === 'kalender') v.innerHTML = renderCalendar();
+    else if (ui.view === 'fitness') v.innerHTML = renderFitness();
+    else if (ui.view === 'darts') v.innerHTML = renderDarts();
+    else v.innerHTML = renderSimpleArea(ui.view);
+  } catch (err) {
+    // Nie eine leere Seite zeigen – meist halb geladenes Update
+    console.error(err);
+    v.innerHTML = `<div class="card"><div class="card-title">⚠️ Ansicht konnte nicht geladen werden</div>
+      <div class="meta" style="margin-top:6px">Vermutlich wurde ein Update nur teilweise geladen. Deine Daten sind sicher.</div>
+      <div class="btn-row"><button class="btn" data-action="apply-update">App neu laden</button></div></div>`;
+  }
 }
 
 /* ---------------- Kalender (Done-Liste) ---------------- */
@@ -686,7 +694,7 @@ document.addEventListener('click', ev => {
       break;
     case 'export': exportData(); break;
     case 'whatsnew-ok':
-      try { localStorage.setItem(SEEN_KEY, APP_VERSION); } catch {}
+      try { localStorage.setItem(SEEN_KEY, CUR_VERSION); } catch {}
       render(); break;
     case 'apply-update': applyUpdate(); break;
     default: handleDartsAction(action, el);
@@ -703,16 +711,19 @@ document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeModal
 
 /* ---------------- Was ist neu ---------------- */
 const SEEN_KEY = 'trainings-seen-version';
+// changelog.js könnte bei einem halb geladenen Update fehlen – dann einfach nichts anzeigen
+const CUR_VERSION = typeof APP_VERSION !== 'undefined' ? APP_VERSION : null;
+const LOG = typeof CHANGELOG !== 'undefined' ? CHANGELOG : [];
+const BASE_VERSION = '1.5'; // Stand vor Einführung von „Was ist neu“
 const verNum = v => String(v || '0').split('.').map(Number).reduce((a, n, i) => a + n / Math.pow(1000, i), 0);
 function whatsNewCard() {
   let seen = null;
   try { seen = localStorage.getItem(SEEN_KEY); } catch {}
-  if (seen === APP_VERSION) return '';
-  // Erststart ohne gespeicherte Version: nur die aktuelle Version zeigen
-  const list = seen ? CHANGELOG.filter(c => verNum(c.version) > verNum(seen)) : CHANGELOG.slice(0, 1);
+  if (!CUR_VERSION || seen === CUR_VERSION) return '';
+  const list = LOG.filter(c => verNum(c.version) > verNum(seen || BASE_VERSION));
   if (!list.length) return '';
   return `<div class="card whatsnew">
-    <div class="card-head"><span class="card-title">🆕 Was ist neu in Version ${APP_VERSION}</span></div>
+    <div class="card-head"><span class="card-title">🆕 Was ist neu in Version ${CUR_VERSION}</span></div>
     ${list.map(c => `${list.length > 1 ? `<div class="cat-label">Version ${c.version}</div>` : ''}
       <ul>${c.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`).join('')}
     <div class="btn-row"><button class="btn" data-action="whatsnew-ok">Alles klar 👍</button></div>
@@ -726,7 +737,7 @@ async function checkForUpdate() {
   try {
     const res = await fetch('version.json?t=' + Date.now(), { cache: 'no-store' });
     const { version } = await res.json();
-    if (!version || version === APP_VERSION) return;
+    if (!version || version === CUR_VERSION) return;
     let tried = null;
     try { tried = sessionStorage.getItem('update-tried'); } catch {}
     const busy = !$('#modal').classList.contains('hidden') || state.activeGame;

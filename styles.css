@@ -231,5 +231,3 @@ select#gymChartPick { margin-bottom: 8px; }
 
 .game-hero.two { grid-template-columns: 1fr 1fr; }
 .game-hero.two + .game-hero.two { margin-top: -6px; }
-.game-hero .need.ok b { color: var(--accent); }
-.game-hero .need.hard b { color: var(--danger); }

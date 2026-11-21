@@ -5,9 +5,16 @@
    dieselbe Version in version.json und in den ?v= Parametern in index.html eintragen,
    CACHE in sw.js hochzählen.
    ========================================================= */
-const APP_VERSION = '1.6.3';
+const APP_VERSION = '1.6.4';
 
 const CHANGELOG = [
+  {
+    version: '1.6.4', date: '2026-11-21',
+    items: [
+      '🎯 501: Statt des mitlaufenden „nötigen Avg“ siehst du jetzt den festen Ziel-Avg des Legs (z. B. 55,7 bei 27 Darts)',
+      '🎨 501: Keine farbige Hervorhebung mehr'
+    ]
+  },
   {
     version: '1.6.3', date: '2026-11-21',
     items: [

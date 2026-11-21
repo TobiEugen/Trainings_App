@@ -29,7 +29,7 @@ Persönliche Trainings-App (Fitness, Golf, Darts) für Tobi. Antworte auf **Deut
 - 18 Darts Scoring (20/19/18/frei): T +2, D +1, Feld drüber/drunter 0, Ausreißer links/rechts −1. Buttons als Kreuz wie auf dem Board: Triple Mitte, drüber oben, drunter unten, links/rechts daneben; Doppel ganz oben (20/18/frei) bzw. ganz unten (19)
 - Upper/Lower (20/19): 6 Aufnahmen à 3 Darts, abwechselnd, Startzone wählbar, Treffer 0–3 pro Aufnahme
 - Shanghai: 1,20,2,20 … 19,20 (38 Felder, kein Bull). Ergebnisse: Shanghai, Doppel Out, 3 im großen Feld, Shanghai verpasst, nicht geschafft (= Feld wiederholen). Wertung = Anzahl Aufnahmen (weniger ist besser)
-- 501 gegen Gegner (variant 30/27/24): bis 3 gewonnene Legs; ungerade Legs (eigener Anwurf) Limit = N Darts, gerade Legs = N−3. Leg gewonnen, wenn innerhalb des Limits gecheckt (Double-Out angenommen). Eingabe nur per Ziffernblock (keine Score-Vorschläge/Schnelltasten – Nutzer will das nicht). Während des Legs: Leg-Avg und nötiger Avg (Rest / verbleibende Darts × 3); Gesamt-Avg erst in der Endabrechnung. Statistik: Gesamt-Avg, First 18 Avg (erste 6 Aufnahmen je Leg), W/L je Gegnerstärke
+- 501 gegen Gegner (variant 30/27/24): bis 3 gewonnene Legs; ungerade Legs (eigener Anwurf) Limit = N Darts, gerade Legs = N−3. Leg gewonnen, wenn innerhalb des Limits gecheckt (Double-Out angenommen). Eingabe nur per Ziffernblock (keine Score-Vorschläge/Schnelltasten – Nutzer will das nicht). Während des Legs: Leg-Avg und fester Ziel-Avg (501 / Limit × 3, aktualisiert sich nicht; keine Farben); Gesamt-Avg erst in der Endabrechnung. Statistik: Gesamt-Avg, First 18 Avg (erste 6 Aufnahmen je Leg), W/L je Gegnerstärke
 - Darts hat kein Dauer-Feld
 
 ## Arbeitsweise

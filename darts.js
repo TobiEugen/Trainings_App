@@ -459,9 +459,8 @@ function x01Body(g, done) {
     const left = L.limit - L.darts;
     const legPts = X01_START - L.rest;
     const legAvg = L.darts ? legPts / L.darts * 3 : null;
-    // Nötiger Avg: Restpunkte verteilt auf die verbleibenden Darts des Limits
-    const needAvg = left > 0 ? L.rest / left * 3 : null;
-    const needCls = needAvg == null ? '' : legAvg != null && needAvg <= legAvg ? 'ok' : needAvg > 120 ? 'hard' : '';
+    // Ziel-Avg: fester Wert pro Leg – 501 genau im Limit checken
+    const targetAvg = X01_START / L.limit * 3;
     html += `
     <div class="game-hero two">
       <div><small>Leg ${L.num} · ${L.myThrow ? 'Ich werfe an' : 'Gegner wirft an'}</small><b class="x01-rest">${L.rest}</b></div>
@@ -469,7 +468,7 @@ function x01Body(g, done) {
     </div>
     <div class="game-hero two">
       <div><small>Leg-Avg</small><b>${legAvg == null ? '–' : fmtNum(legAvg)}</b></div>
-      <div class="need ${needCls}"><small>Nötiger Avg zum Leg-Sieg</small><b>${needAvg == null ? '–' : fmtNum(needAvg)}</b></div>
+      <div><small>Ziel-Avg (${L.limit} Darts)</small><b>${fmtNum(targetAvg)}</b></div>
     </div>
     <p class="hint" style="text-align:center">Noch <b>${left} Darts</b> (${Math.ceil(left / 3)} Aufnahmen), um das Leg zu gewinnen.</p>`;
     if (ui.x01Pending) {

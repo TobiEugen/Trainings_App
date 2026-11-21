@@ -417,7 +417,6 @@ function handleDartsAction(action, el) {
 const X01_START = 501, X01_TARGET = 3;
 const X01_IMPOSSIBLE = new Set([163, 166, 169, 172, 173, 175, 176, 178, 179]);
 const X01_NO_CHECKOUT = new Set([159, 162, 163, 165, 166, 168, 169]);
-const X01_QUICK = [26, 41, 45, 55, 60, 81, 85, 95, 100, 121, 140, 180];
 
 function x01State(g) {
   const base = Number(g.variant);
@@ -458,11 +457,19 @@ function x01Body(g, done) {
     </div>`;
   if (!done) {
     const left = L.limit - L.darts;
+    const legPts = X01_START - L.rest;
+    const legAvg = L.darts ? legPts / L.darts * 3 : null;
+    // Nötiger Avg: Restpunkte verteilt auf die verbleibenden Darts des Limits
+    const needAvg = left > 0 ? L.rest / left * 3 : null;
+    const needCls = needAvg == null ? '' : legAvg != null && needAvg <= legAvg ? 'ok' : needAvg > 120 ? 'hard' : '';
     html += `
-    <div class="game-hero">
+    <div class="game-hero two">
       <div><small>Leg ${L.num} · ${L.myThrow ? 'Ich werfe an' : 'Gegner wirft an'}</small><b class="x01-rest">${L.rest}</b></div>
       <div><small>Darts / Limit</small><b>${L.darts}/${L.limit}</b></div>
-      <div><small>Ø Match</small><b>${st.darts ? fmtNum(st.avg) : '–'}</b></div>
+    </div>
+    <div class="game-hero two">
+      <div><small>Leg-Avg</small><b>${legAvg == null ? '–' : fmtNum(legAvg)}</b></div>
+      <div class="need ${needCls}"><small>Nötiger Avg zum Leg-Sieg</small><b>${needAvg == null ? '–' : fmtNum(needAvg)}</b></div>
     </div>
     <p class="hint" style="text-align:center">Noch <b>${left} Darts</b> (${Math.ceil(left / 3)} Aufnahmen), um das Leg zu gewinnen.</p>`;
     if (ui.x01Pending) {
@@ -478,8 +485,6 @@ function x01Body(g, done) {
     } else {
       html += `
       <div class="x01-display">${ui.x01Input === '' ? '<span class="meta">Score eingeben</span>' : ui.x01Input}</div>
-      <div class="x01-quick">${X01_QUICK.map(q => `<button class="chip" data-action="x01-quick" data-v="${q}" ${q > L.rest ? 'disabled' : ''}>${q}</button>`).join('')}
-        ${L.rest <= 170 && !X01_NO_CHECKOUT.has(L.rest) ? `<button class="chip checkout-chip" data-action="x01-quick" data-v="${L.rest}">Check ${L.rest}</button>` : ''}</div>
       <div class="x01-pad">
         ${[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `<button class="btn secondary" data-action="x01-key" data-v="${n}">${n}</button>`).join('')}
         <button class="btn secondary" data-action="x01-key" data-v="del">⌫</button>
@@ -496,7 +501,7 @@ function x01Body(g, done) {
   } else {
     html += `<p class="hint" style="text-align:center">${st.wins > st.losses ? '🏆 Match gewonnen!' : 'Match verloren – nächstes Mal!'}</p>`;
   }
-  html += x01Summary(st);
+  if (done) html += x01Summary(st); // Gesamt-Avg & Leg-Übersicht erst in der Endabrechnung
   return html;
 }
 

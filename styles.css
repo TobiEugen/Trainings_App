@@ -228,3 +228,8 @@ select#gymChartPick { margin-bottom: 8px; }
 .dc-so { grid-area: so; } .dc-su { grid-area: su; }
 .dc-ml { grid-area: ml; } .dc-mr { grid-area: mr; }
 .dc-t { grid-area: t; }
+
+.game-hero.two { grid-template-columns: 1fr 1fr; }
+.game-hero.two + .game-hero.two { margin-top: -6px; }
+.game-hero .need.ok b { color: var(--accent); }
+.game-hero .need.hard b { color: var(--danger); }

@@ -5,9 +5,17 @@
    dieselbe Version in version.json und in den ?v= Parametern in index.html eintragen,
    CACHE in sw.js hochzählen.
    ========================================================= */
-const APP_VERSION = '1.6.2';
+const APP_VERSION = '1.6.3';
 
 const CHANGELOG = [
+  {
+    version: '1.6.3', date: '2026-11-21',
+    items: [
+      '📊 501: Neu sind dein Leg-Avg und der nötige Avg, um das Leg noch innerhalb des Limits zu gewinnen (grün = du liegst im Soll)',
+      '⌨️ 501: Keine Score-Vorschläge mehr – Eingabe nur noch über den Ziffernblock',
+      '🧹 501: Gesamt-Avg, First 18 Avg und Leg-Übersicht erscheinen erst in der Endabrechnung'
+    ]
+  },
   {
     version: '1.6.2', date: '2026-11-21',
     items: [

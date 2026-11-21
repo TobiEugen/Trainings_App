@@ -217,3 +217,14 @@ select#gymChartPick { margin-bottom: 8px; }
 .update-bar { position: fixed; left: 12px; right: 12px; top: calc(64px + var(--safe-top)); z-index: 40; background: var(--panel-2);
   border: 1px solid var(--accent); border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 14px; }
 .update-bar.hidden { display: none; }
+
+/* 18 Darts Scoring: Buttons wie auf dem Board angeordnet (Triple in der Mitte) */
+.dart-cross { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.dart-cross.double-above { grid-template-areas: ". d ." ". so ." "ml t mr" ". su ."; }
+.dart-cross.double-below { grid-template-areas: ". so ." "ml t mr" ". su ." ". d ."; }
+.dart-cross .btn { padding: 16px 4px; font-size: 16px; flex-direction: column; gap: 2px; }
+.dart-cross .btn small { font-weight: 400; opacity: .8; font-size: 12px; }
+.dc-d { grid-area: d; background: var(--golf); color: #082f49; }
+.dc-so { grid-area: so; } .dc-su { grid-area: su; }
+.dc-ml { grid-area: ml; } .dc-mr { grid-area: mr; }
+.dc-t { grid-area: t; }

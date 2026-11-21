@@ -5,9 +5,16 @@
    dieselbe Version in version.json und in den ?v= Parametern in index.html eintragen,
    CACHE in sw.js hochzählen.
    ========================================================= */
-const APP_VERSION = '1.6.1';
+const APP_VERSION = '1.6.2';
 
 const CHANGELOG = [
+  {
+    version: '1.6.2', date: '2026-11-21',
+    items: [
+      '🎯 18 Darts Scoring: Die Buttons sind jetzt wie auf dem Board angeordnet – Triple in der Mitte, drüber/drunter darüber und darunter, links/rechts daneben',
+      '➕ Doppel liegt bei 20, 18 und freiem Spiel ganz oben, bei der 19 ganz unten'
+    ]
+  },
   {
     version: '1.6.1', date: '2026-11-20',
     items: [

@@ -134,13 +134,13 @@ function scoringBody(g, done) {
     </div>
     ${done ? '<p class="hint" style="text-align:center">Alle 18 Darts geworfen – stark!</p>' : `
       <div class="dart-slots">${slot(0)}${slot(1)}${slot(2)}</div>
-      <div class="game-buttons grid-2">
-        <button class="btn" data-action="dart-throw" data-v="T">Triple <small>+2</small></button>
-        <button class="btn" data-action="dart-throw" data-v="D">Doppel <small>+1</small></button>
-        <button class="btn field-btn" data-action="dart-throw" data-v="SO">⬆ Feld drüber <small>0</small></button>
-        <button class="btn field-btn" data-action="dart-throw" data-v="SU">⬇ Feld drunter <small>0</small></button>
-        <button class="btn miss-btn" data-action="dart-throw" data-v="ML">⬅ Ausreißer links <small>−1</small></button>
-        <button class="btn miss-btn" data-action="dart-throw" data-v="MR">Ausreißer rechts ➡ <small>−1</small></button>
+      <div class="dart-cross ${g.variant === '19' ? 'double-below' : 'double-above'}">
+        <button class="btn dc-d" data-action="dart-throw" data-v="D">Doppel <small>+1</small></button>
+        <button class="btn field-btn dc-so" data-action="dart-throw" data-v="SO">⬆ drüber <small>0</small></button>
+        <button class="btn miss-btn dc-ml" data-action="dart-throw" data-v="ML">⬅ links <small>−1</small></button>
+        <button class="btn dc-t" data-action="dart-throw" data-v="T">Triple <small>+2</small></button>
+        <button class="btn miss-btn dc-mr" data-action="dart-throw" data-v="MR">rechts ➡ <small>−1</small></button>
+        <button class="btn field-btn dc-su" data-action="dart-throw" data-v="SU">⬇ drunter <small>0</small></button>
       </div>`}
     <table class="score-table"><tr><th>Aufn.</th><th>Darts</th><th>Punkte</th></tr>
       ${rounds.map((r, i) => {
